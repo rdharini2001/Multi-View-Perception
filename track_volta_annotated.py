@@ -7,7 +7,6 @@ import imutils
 import math
 import numpy as np 
 import random
-# Load YOLOv5 model from Ultralytics
 model = YOLO('/home/rbccps/Desktop/pose estimation/train46.pt')
 
 # Initialize SORT tracker
@@ -28,14 +27,12 @@ height= int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 writer= cv2.VideoWriter('CAMERA219_march1.mp4', cv2.VideoWriter_fourcc(*'XVID'), 20, (width,height))
 # Initialize variables for tracking lines
 track_lines = []
-#writer= cv2.VideoWriter('CAMERA219_march1_track_new.mp4', cv2.VideoWriter_fourcc(*'XVID'), 20, (width,height))
+
 while True:
     ret, frame = cap.read()
     #frame = imutils.resize(frame, width=800, height=800)
     if not ret:
         break
-
-    # Detect objects using YOLOv5
     results = model(frame)
     box = results[0].boxes.xyxy.tolist()
     for x1, y1, x2, y2 in box:
@@ -53,23 +50,16 @@ while True:
             point = np.array([center_x, center_y, 1])
             world_coord=np.dot(inv_homo_mat,point)
             scalar=world_coord[0,2]
-            x = random.uniform(0.2,5.0)
-            y = random.uniform(0.2,5.0)
-            theta = random.uniform(0.2,5.0)
-            frame_text = "3D Pose and Uncertainties x: {:.2f}, var_x: {:.2f}, y: {:.2f}, var_y: {:.2f} yaw: {:.2f}, var_yaw{:.2f}".format(world_coord[0,0]/scalar, x, world_coord[0,1]/scalar, y, yaw1, theta)
+            frame_text = "3D Pose x: {:.2f}, y: {:.2f}, yaw: {:.2f}".format(world_coord[0,0]/scalar, world_coord[0,1]/scalar, yaw1)
             cv2.putText(frame,frame_text,(6, 30), cv2.FONT_HERSHEY_COMPLEX_SMALL, 1, (0, 0, 255), 2)
          # Draw tracking lines
     if len(track_lines) > 1:
             for i in range(1, len(track_lines)):
                     cv2.line(frame, track_lines[i - 1], track_lines[i], (255, 0, 0), 2)
-                    
-    #writer.write(frame)
     writer.write(frame)
     # Display the result
     #cv2.imshow('Object Tracking', frame)
     if cv2.waitKey(30) & 0xFF == 27:  # Press 'Esc' to exit
                          break
-
-# Release resources
 cap.release()
 cv2.destroyAllWindows()
