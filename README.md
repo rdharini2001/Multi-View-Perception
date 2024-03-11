@@ -7,12 +7,12 @@ This repo contains code, data and step-by-step instructions to replicate the pap
 3. The pose of the robot is estimated with respect to the camera's global origin.
 
 # Pose Uncertainty Estimation
-1. Install ultralytics and replace the default ```predict.py``` file with ```nms_predict.py``` provided in this repository. The model is expected to return 300 bounding boxes during inference.
+1. Install ultralytics and replace the default ```predict.py``` file with ```nms_predict.py``` provided in this repository. The model is expected to return 300 bounding boxes during inference. NOTE - You may have to rebuild the script for changes to take place.
 2. The 2D keypoints corresponding to every prediction along with the 3D keypoint coordinates is used for computing epistemic uncertainty (refer to the paper for the exact method).
 
 
 # Camera Placement Optimization
-1. Replace the path to your map file in the cam_placement_optimizer script
+1. Replace the path to your map file in the ```cam_placement_optimizer``` script.
 2. Tune the hyperparameters such as ```grid_size```, ```weight_coverage``` and ```weight'covariance``` based on the nature of the operating environment.
 3. Run the ```cam_placement_optimizer``` script, the corresponding camera locations are printed on the map.
 4. Using the homography of the camera, project the camera positions in the image plane to the world plane.
