@@ -17,7 +17,6 @@ while True:
     if not ret:
         break
     results = model(frame)
-    # Extract keypoint coordinates (assuming keypoints are in results.xyxy format)
     keypoints = results[0].keypoints.xy.cpu().numpy()
     # PnP (Perspective-n-Point) using OpenCV
     object_points = threed_points  # 3D points in the world coordinate system
@@ -34,12 +33,9 @@ while True:
     # rvec and tvec are the rotation vector and translation vector respectively
     print("Rotation Vector (rvec):", rvec.flatten())
     print("Translation Vector (tvec):", tvec.flatten())
-
-    # Draw keypoints on the frame (just for visualization purposes)
+        
     for point in image_points.astype(int):
         cv2.circle(frame, tuple(point), 5, (0, 255, 0), -1)
-
-    # Display the frame
     cv2.imshow('Pose Estimation', frame)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
