@@ -9,3 +9,11 @@ This repo contains code, data and step-by-step instructions to replicate the pap
 # Pose Uncertainty Estimation
 
 
+
+
+# Camera Placement Optimization
+1. 
+
+# Multi-Robot Tracking and Data Association 
+
+# Sensor Fusion
