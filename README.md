@@ -7,18 +7,24 @@ This repo contains code, data and step-by-step instructions to replicate the pap
 3. The pose of the robot is estimated with respect to the camera's global origin.
 
 # Pose Uncertainty Estimation
-1. Install ultralytics and replace the default predict.py file with 'nms_predict.py'provided in this repository. The model is expected to return 300 bounding boxes during inference.
+1. Install ultralytics and replace the default '''predict.py''' file with '''nms_predict.py'''provided in this repository. The model is expected to return 300 bounding boxes during inference.
 2. The 2D keypoints corresponding to every prediction along with the 3D keypoint coordinates is used for computing epistemic uncertainty (refer to the paper for the exact method).
 
 
 # Camera Placement Optimization
 1. Replace the path to your map file in the cam_placement_optimizer script
 2. Tune the hyperparameters such as 'grid_size', 'weight_coverage' and 'weight'covariance' based on the nature of the operating environment.
-3. Run the cam_placement_optimizer script, the corresponding camera locations are printed on the map.
+3. Run the '''cam_placement_optimizer''' script, the corresponding camera locations are printed on the map.
 4. Using the homography of the camera, project the camera positions in the image plane to the world plane.
 NOTE: This algorithm only determines the x and y locations of the camera. The cameras are assumed to be fixed at a height d = 750 cm.
 
 # Multi-Robot Tracking and Data Association 
-1. Download the weights file in the same directory as that of the track_volta_annotated.py script and execute the script.
+1. Execute the track_volta_annotated.py script. This is used for tracking one or more robots within the field of view of the camera. The corresponding track locations/pose of the robot are printed on every frame.
+2. COMING SOON - multi-robot multi-camera tracking
+3. The association.py script is used for associating multiple sensor measurements with respective tracks. It executes a Mahalanobis gating mechansim to acheive this.
 
 # Sensor Fusion
+1. In this work, we consider RTAB Map as the base RGBD SLAM framework. We use the [robot_localization](https://github.com/cra-ros-pkg/robot_localization) and implement an extended Kalman filter to communicate with the RTAB map node.
+2. We consider 5 different sensors - onboard LiDAR, IMU, wheel encoders, onboard depth camera and external monocular camera.
+3. Install RTAB Map using the instructions provided in the [RTABMap Repo](https://github.com/introlab/rtabmap) and replace the '''rtabmap.launch''' file with the '''camera_sensor_fusion.launch''' file provided in this repo. NOTE - The initial covariance and the noise covariance matrices might need some tuning based on the experimental setup and operating conditions.
+4. Finally, launch RTAB Map using the custom launch file.
