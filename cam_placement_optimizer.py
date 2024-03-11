@@ -74,9 +74,9 @@ image_path = 'path_to_your_image.jpg'
 rgb_image = io.imread(image_path)
 num_cameras = 3
 grid_size = 50
-fov_angle = np.radians(45)
-weight_coverage = 1
-weight_covariance = 0.1
+fov_angle = np.radians(30)
+weight_coverage = 0.5
+weight_covariance = 1
 
 binary_map = generate_binary_map(rgb_image)
 optimal_positions = optimize_camera_placement(rgb_image, num_cameras, grid_size, fov_angle, weight_coverage, weight_covariance)
