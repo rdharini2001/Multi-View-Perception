@@ -16,7 +16,7 @@ def coverage_matrix(camera_position, grid_size, fov_angle):
             distance = np.sqrt((i - camera_position[0])**2 + (j - camera_position[1])**2)
             if np.abs(angle) < fov_angle / 2 and distance <= grid_size / 2:
                 coverage_matrix[i, j] = 1
-    return coverage_matrix
+    return coverage_matrix 
 
 def total_coverage(positions, grid_size, fov_angle):
     num_cameras = len(positions) // 2
@@ -47,14 +47,11 @@ def optimize_camera_placement(rgb_image, num_cameras, grid_size, fov_angle, weig
         method='L-BFGS-B',  # Limited-memory Broyden-Fletcher-Goldfarb-Shanno
         bounds=[(0, grid_size)] * num_cameras * 2
     )
-
     optimal_positions = result.x
-
     return optimal_positions
 
 def plot_map_with_cameras(rgb_image, optimal_positions, grid_size, fov_angle):
     plt.imshow(rgb_image)
-
     num_cameras = len(optimal_positions) // 2
     for i in range(0, len(optimal_positions), 2):
         camera_position = optimal_positions[i:i+2]
