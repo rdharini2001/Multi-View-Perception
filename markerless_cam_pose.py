@@ -22,6 +22,12 @@ while True:
     # PnP (Perspective-n-Point) using OpenCV
     object_points = threed_points  # 3D points in the world coordinate system
     image_points = keypoints[:, :2]  # 2D points in the image plane
+
+    camera_matrix = np.array([[970.13975699,   0.        , 661.05696322],
+                                   [  0.        , 965.0683426 , 324.24867006],
+                                   [  0.        ,    0.       ,   1.        ]]) #for camera 219, for other cameras refer to homography.txt
+
+    dist_coeffs = np.array([-0.44779831, 0.21493212, 0.0086979, -0.00269077, 0.00281984]) #for camera 219, for other cameras refer to homography.txt
   
     camera_matrix = np.array([[fx, 0, cx], [0, fy, cy], [0, 0, 1]]) #replace with your camera matrix (if available).
     dist_coeffs = np.zeros((4, 1)) #replace with your camera's distortion coefficients (if available).
