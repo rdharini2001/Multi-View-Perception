@@ -29,6 +29,7 @@ while True:
     dist_coeffs = np.array([-0.44779831, 0.21493212, 0.0086979, -0.00269077, 0.00281984]) #for camera 219, for other cameras refer to homography.txt
 
     retval, rvec, tvec = cv2.solvePnP(object_points, image_points, camera_matrix, dist_coeffs)
+    rvec, tvec, inliers = cv2.solvePnPRANSAC(object_points, image_points, camera_matrix, dist_coeffs) ##with RANSAC
   
     # rvec and tvec are the rotation vector and translation vector respectively
     print("Rotation Vector (rvec):", rvec.flatten())
