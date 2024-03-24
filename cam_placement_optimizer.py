@@ -139,7 +139,7 @@ img = Image.open("map.jpg")  # Replace "map.jpg" with the path to your map image
 n = 5  # Number of rows
 m = 5  # Number of columns
 d_max = 5  # Maximum allowable distance
-covariance_threshold = 0.1  # Maximum allowable covariance threshold
+covariance_threshold = 6  # Maximum allowable covariance threshold
 field_of_view = 45  # Field of view angle (in degrees)
 
 # Run the camera placement algorithm
