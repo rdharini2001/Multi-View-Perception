@@ -1,61 +1,152 @@
 import numpy as np
+from scipy.optimize import minimize
 import matplotlib.pyplot as plt
-from scipy.spatial import distance_matrix
-from pulp import *
+from matplotlib.patches import Rectangle
+from PIL import Image
 
-def camera_placement_optimization(num_grid_cells, coverage_matrix, covariance_matrices, localization_threshold):
-    # Create binary integer programming problem
-    prob = LpProblem("Camera Placement Optimization", LpMinimize)
+def visibility_model(x, y, d, a):
+    """
+    Visibility model function.
+    x: x-coordinate of the point
+    y: y-coordinate of the point
+    d: maximum allowable covariance
+    a: field of view angle
+    """
+    return (x <= d) and (y <= (a * x) / (2 * d))
 
-    # Binary variables representing whether each camera is placed or not
-    cameras = LpVariable.dicts("Camera", range(num_grid_cells), 0, 1, LpBinary)
+def objective_function(x, n, m, beta):
+    """
+    Objective function to minimize the number of cameras.
+    x: array containing the positions and orientations of the cameras
+    n: number of rows
+    m: number of columns
+    beta: field of view angle (in degrees)
+    """
+    c = x[:n*m].reshape((n, m))
+    d = x[n*m:-1].reshape((n, m))
+    a = x[-1]
+    return np.sum(c)
 
-    # Objective function: minimize the total number of cameras used
-    prob += lpSum(cameras)
+def constraint_function(x, n, m, beta, d_max, covariance_threshold):
+    """
+    Constraint function to ensure coverage and maximum allowable covariance.
+    x: array containing the positions and orientations of the cameras
+    n: number of rows
+    m: number of columns
+    beta: field of view angle (in degrees)
+    d_max: maximum allowable distance
+    covariance_threshold: maximum allowable covariance threshold
+    """
+    c = x[:n*m].reshape((n, m))
+    d = x[n*m:-1].reshape((n, m))
+    a = x[-1]
+    constraints = []
+    for i in range(n):
+        for j in range(m):
+            for i1 in range(n):
+                for j1 in range(m):
+                    if np.sqrt((i-i1)**2 + (j-j1)**2) <= d_max:
+                        if (i, j) != (i1, j1):
+                            cov = np.sqrt((i - i1) ** 2 + ((j - j1) / 2) ** 2)
+                            if cov <= d[i, j]:
+                                if visibility_model(i - i1, j - j1, d[i, j], a * np.pi / 180):
+                                    constraints.append(1 - c[i, j] + c[i, j] * c[i1, j1])
+                                else:
+                                    constraints.append(c[i, j] * c[i1, j1])
+                            else:
+                                constraints.append(c[i, j] * c[i1, j1])
+    return np.array(constraints)
 
-    # Coverage constraint: ensure each grid cell is covered by at least one camera
-    for cell in range(num_grid_cells):
-        prob += lpSum(coverage_matrix[cell][i] * cameras[i] for i in range(num_grid_cells)) >= 1
+def camera_placement_algorithm(n, m, d_max, covariance_threshold, beta):
+    """
+    Camera placement algorithm using Lagrange multipliers.
+    n: number of rows
+    m: number of columns
+    d_max: maximum allowable distance
+    covariance_threshold: maximum allowable covariance threshold
+    beta: field of view angle (in degrees)
+    """
+    # Initial guess for the positions and orientations of the cameras
+    x0 = np.ones(n * m + n * m + 1)
 
-    # Localization accuracy constraint: ensure covariance of each camera is below the threshold
-    for i in range(num_grid_cells):
-        covariance_norm = np.linalg.norm(covariance_matrices[i])
-        prob += covariance_norm <= localization_threshold
+    # Bounds for the positions and orientations of the cameras
+    bounds = [(0, 1) for _ in range(n * m)] + \
+             [(0, d_max) for _ in range(n * m)] + \
+             [(0, 90)]
 
-    # Solve the problem
-    prob.solve()
-    
-    # Extract solution
-    camera_placement = [cameras[i].value() for i in range(num_grid_cells)]
-    selected_cameras = [i for i in range(num_grid_cells) if camera_placement[i] == 1]
+    # Constraint for each camera to cover at least one grid cell
+    cons = ({'type': 'ineq', 'fun': lambda x: np.sum(x[:n*m].reshape((n, m)), axis=1) - 1})
 
-    return selected_cameras
+    # Solve the optimization problem
+    res = minimize(objective_function, x0, args=(n, m, beta), constraints=cons,
+                   bounds=bounds, method='SLSQP')
 
-def plot_camera_positions(map_image, camera_positions):
+    if res.success:
+        print("Optimization successful.")
+        c = res.x[:n*m].reshape((n, m))
+        print("Number of cameras:", np.sum(c))
+        print("Camera positions and orientations:")
+        print(c)
+        return c
+    else:
+        print("Optimization failed.")
+        return None
+
+def divide_into_grids(img, n, m):
+    """
+    Divide the image into n x m occupancy grids.
+    img: PIL Image object
+    n: number of rows
+    m: number of columns
+    """
+    width, height = img.size
+    grid_width = width // m
+    grid_height = height // n
+    grids = []
+    for i in range(n):
+        for j in range(m):
+            left = j * grid_width
+            top = i * grid_height
+            right = left + grid_width
+            bottom = top + grid_height
+            grids.append((left, top, right, bottom))
+    return grids
+
+def plot_camera_positions(img, camera_positions, grids):
+    """
+    Plot the camera positions on the map.
+    img: PIL Image object
+    camera_positions: 2D array indicating camera positions
+    grids: list of tuples representing grid coordinates
+    """
     fig, ax = plt.subplots()
-    ax.imshow(map_image)
-    for position in camera_positions:
-        ax.plot(position[1], position[0], 'ro')  # Assuming (row, col) format for position
-    plt.title("Camera Positions")
+    ax.imshow(img)
+    for i in range(len(camera_positions)):
+        for j in range(len(camera_positions[0])):
+            if camera_positions[i][j] == 1:
+                rect = Rectangle((grids[i * len(camera_positions[0]) + j][0], grids[i * len(camera_positions[0]) + j][1]),
+                                 grids[i * len(camera_positions[0]) + j][2] - grids[i * len(camera_positions[0]) + j][0],
+                                 grids[i * len(camera_positions[0]) + j][3] - grids[i * len(camera_positions[0]) + j][1],
+                                 linewidth=1, edgecolor='r', facecolor='none')
+                ax.add_patch(rect)
+    ax.set_aspect('equal')
     plt.show()
 
-# Example usage
-# Assuming map_image is a 2D array representing the map
-# Assuming num_grid_cells is the number of grid cells in the map
-# Assuming coverage_matrix is the matrix indicating whether a camera covers a grid cell
-# Assuming covariance_matrices is a list of covariance matrices for each camera
-# Assuming localization_threshold is the maximum allowed covariance norm
+# Load the map image
+img = Image.open("map.jpg")  # Replace "map.jpg" with the path to your map image
 
-# Example map_image (replace this with your own map data)
-map_image = np.zeros((100, 100))
+# Parameters
+n = 5  # Number of rows
+m = 5  # Number of columns
+d_max = 5  # Maximum allowable distance
+covariance_threshold = 0.1  # Maximum allowable covariance threshold
+field_of_view = 45  # Field of view angle (in degrees)
 
-# Example parameters
-num_grid_cells = 50
-coverage_matrix = np.random.randint(0, 2, size=(num_grid_cells, num_grid_cells))
-covariance_matrices = [np.random.rand(2, 2) for _ in range(num_grid_cells)]  # Example covariance matrices
-localization_threshold = 1.0  # Example localization threshold
+# Run the camera placement algorithm
+camera_positions = camera_placement_algorithm(n, m, d_max, covariance_threshold, field_of_view)
 
-# Solve camera placement optimization
-selected_cameras = camera_placement_optimization(num_grid_cells, coverage_matrix, covariance_matrices, localization_threshold)
-# Plot camera positions on the map
-plot_camera_positions(map_image, selected_cameras)
+# Divide the image into occupancy grids
+grids = divide_into_grids(img, n, m)
+
+# Plot the camera positions on the map
+plot_camera_positions(img, camera_positions, grids)
