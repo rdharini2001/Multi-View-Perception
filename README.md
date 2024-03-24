@@ -3,7 +3,7 @@ This repo contains code, data and instructions to replicate the paper - 'Leverag
 ![alt text](https://github.com/rdharini2001/Multi-View-Perception/blob/main/final_method.png)
 
 # Marker-less Robot Pose Estimation
-1. Download the pre-trained weights using this [link](https://drive.google.com/file/d/1scYfZa8a6hECXPae7nkQLXC1lbxKabC0/view?usp=sharing). If you wish to retrain the model, download the dataset from here: [Volta Pose](https://drive.google.com/drive/folders/1uBcb-0tSmQp2Nw9Y9dzLTH_DdySIXnbV?usp=sharing)
+1. Download the pre-trained weights using this [link](https://drive.google.com/file/d/1scYfZa8a6hECXPae7nkQLXC1lbxKabC0/view?usp=sharing). If you wish to retrain the model, download the dataset from here: [Volta Pose](https://drive.google.com/drive/folders/1uBcb-0tSmQp2Nw9Y9dzLTH_DdySIXnbV?usp=sharing) Details on model architecture and environment setup coming soon!
 2. Put it in the same directory as ```markerless_cam_pose.py``` and execute the script.
 3. The pose of the robot is estimated with respect to the camera's global origin.
 
