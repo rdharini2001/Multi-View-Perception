@@ -26,6 +26,4 @@ NOTE: This algorithm only determines the ```x``` and ```y``` locations of the ca
 # Sensor Fusion
 1. In this work, we consider RTAB Map as the base RGBD SLAM framework. We use the [robot_localization](https://github.com/cra-ros-pkg/robot_localization) package and implement an extended Kalman filter to communicate with the RTAB map node.
 2. We consider 5 different sensors - onboard LiDAR, IMU, wheel encoders, onboard depth camera and external monocular camera.
-3. Install RTAB Map using the instructions provided in the [RTABMap Repo](https://github.com/introlab/rtabmap) and replace the ```rtabmap.launch```
-file with the ```camera_sensor_fusion.launch``` file provided in this repo. NOTE - The initial covariance and the noise covariance matrices might need some tuning based on the experimental setup and operating conditions.
-5. Finally, launch RTAB Map using the custom launch file.
+3. Install RTAB Map using the instructions provided in the [RTABMap Repo](https://github.com/introlab/rtabmap) and launch RTAB Map with the custom launch file ```camera_sensor_fusion.launch``` provided in this repo. NOTE - The initial covariance and the noise covariance matrices might need some tuning based on the experimental setup and operating conditions.
