@@ -8,7 +8,7 @@ This repo contains code, data and instructions to replicate the paper - 'Leverag
 
 # Pose Uncertainty Estimation
 1. Install ultralytics and replace the default ```predict.py``` file with ```nms_predict.py``` provided in this repository. The model is expected to return 300 bounding boxes during inference. NOTE - You may have to rebuild the script for changes to take place.
-2. The 2D keypoints corresponding to every prediction along with the 3D keypoint coordinates is used for computing epistemic uncertainty (refer to the paper for the exact method).
+2. Run the ```uncertainty_computation.py``` script to estimate epistemic model uncertainty and associated covariance. (refer to the paper for the exact method).
 
 
 # Camera Placement Optimization
