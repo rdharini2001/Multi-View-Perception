@@ -23,7 +23,7 @@ NOTE: This algorithm only determines the ```x``` and ```y``` locations of the ca
 # Multi-Robot Tracking and Data Association 
 1. Execute the ```track_volta_annotated.py``` script. This is used for tracking one or more robots within the field of view of the camera. The corresponding track locations/pose of the robot are printed on every frame.
 2. COMING SOON - multi-robot multi-camera tracking
-3. The ```association.py``` script is used for associating multiple sensor measurements with respective tracks. It executes a Mahalanobis gating mechansim to acheive this.
+3. The ```association.py``` script is used for associating multiple sensor measurements with respective tracks. It internally runs a Hungarian algorithm which further involves minimization of a cost function leading to the assignments of measurements to corresponding tracks. The cost function depends on the norm of the covariance associated with the camera. Refer to the paper for more details.
 
 # Sensor Fusion
 1. In this work, we consider RTAB Map as the base RGBD SLAM framework. We use the [robot_localization](https://github.com/cra-ros-pkg/robot_localization) package and implement an extended Kalman filter to communicate with the RTAB map node.
