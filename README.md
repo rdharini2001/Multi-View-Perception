@@ -14,7 +14,7 @@ This repo contains code, data and instructions to replicate the paper - 'Leverag
 
 # Camera Placement Optimization
 1. Replace the path to your map file in the ```cam_placement_optimizer``` script.
-2. Tune the hyperparameters such as ```grid_size```, ```weight_coverage``` and ```weight'covariance``` based on the nature of the operating environment.
+2. Tune the hyperparameters such as ```covariance_threshold```, ```d_max``` and ```grid size``` based on the nature of the operating environment.
 3. Run the ```cam_placement_optimizer``` script, the corresponding camera locations are printed on the map.
 4. Using the homography of the camera, project the camera positions in the image plane to the world plane.
 NOTE: This algorithm only determines the ```x``` and ```y``` locations of the camera. The cameras are assumed to be fixed at a height ```d = 750 cm```.
