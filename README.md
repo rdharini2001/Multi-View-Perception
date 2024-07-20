@@ -3,6 +3,8 @@
 This repo contains code, data and instructions to replicate the paper - 'Leveraging Monocular Infrastructure Cameras for Collaborative Multi-View Perception for Indoor Autonomous Mobile Robots'. This work is divided into 5 phases - marker-less robot pose estimation, pose uncertainty estimation, camera placement optimziation, data association for multi-camera multi-robot navigation and sensor fusion. Below is the overall framework proposed.
 ![alt text](https://github.com/rdharini2001/Multi-View-Perception/blob/main/final_method.png)
 
+Please read the supplementary material for a comprehensive and more detailed explanation of various aspects of the framework that are not covered in the paper.
+
 # Marker-less Robot Pose Estimation
 Download the pre-trained weights using this [link](https://drive.google.com/file/d/1scYfZa8a6hECXPae7nkQLXC1lbxKabC0/view?usp=sharing). If you wish to retrain the model, download the dataset from here: [Volta Pose](https://drive.google.com/drive/folders/1uBcb-0tSmQp2Nw9Y9dzLTH_DdySIXnbV?usp=sharing). We fine-tune the YOLOv8n-pose model for keypoint detection. Refer to this [link](https://github.com/ultralytics/ultralytics/blob/4ac93d82faf3324d18a233090445e83cfac62ce2/ultralytics/nn/modules/head.py) for more details on the model architecture. 
 
