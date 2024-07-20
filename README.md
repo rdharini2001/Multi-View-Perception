@@ -3,14 +3,17 @@ This repo contains code, data and instructions to replicate the paper - 'Leverag
 ![alt text](https://github.com/rdharini2001/Multi-View-Perception/blob/main/final_method.png)
 
 # Marker-less Robot Pose Estimation
-Download the pre-trained weights using this [link](https://drive.google.com/file/d/1scYfZa8a6hECXPae7nkQLXC1lbxKabC0/view?usp=sharing). If you wish to retrain the model, download the dataset from here: [Volta Pose](https://drive.google.com/drive/folders/1uBcb-0tSmQp2Nw9Y9dzLTH_DdySIXnbV?usp=sharing) We fine-tune the YOLOv8n-pose model for keypoint detection. Refer to this [link](https://github.com/ultralytics/ultralytics/blob/4ac93d82faf3324d18a233090445e83cfac62ce2/ultralytics/nn/modules/head.py) for more details on the model architecture. 
+Download the pre-trained weights using this [link](https://drive.google.com/file/d/1scYfZa8a6hECXPae7nkQLXC1lbxKabC0/view?usp=sharing). If you wish to retrain the model, download the dataset from here: [Volta Pose](https://drive.google.com/drive/folders/1uBcb-0tSmQp2Nw9Y9dzLTH_DdySIXnbV?usp=sharing). We fine-tune the YOLOv8n-pose model for keypoint detection. Refer to this [link](https://github.com/ultralytics/ultralytics/blob/4ac93d82faf3324d18a233090445e83cfac62ce2/ultralytics/nn/modules/head.py) for more details on the model architecture. 
 
 # Model Training
-
-
-
-2. Put it in the same directory as ```markerless_cam_pose.py``` and execute the script.
-3. The pose of the robot is estimated with respect to the camera's global origin.
+```
+from ultralytics import YOLO
+# Load a model
+model = YOLO('yolov8n-pose.pt')  # load a pretrained model
+# Train the model
+results = model.train(data='tortoise_pose.yaml', epochs=200, imgsz=640)
+```
+Place the trained model in the same directory as ```markerless_cam_pose.py``` and execute the script. The pose of the robot is estimated with respect to the camera's global origin.
 
 # Pose Uncertainty Estimation
 1. Install ultralytics and replace the default ```predict.py``` file with ```nms_predict.py``` provided in this repository. The model is expected to return 300 bounding boxes during inference. NOTE - You may have to rebuild the script for changes to take place.
