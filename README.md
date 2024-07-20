@@ -11,7 +11,7 @@ from ultralytics import YOLO
 # Load a model
 model = YOLO('yolov8n-pose.pt')  # load a pretrained model
 # Train the model
-results = model.train(data='tortoise_pose.yaml', epochs=200, imgsz=640)
+results = model.train(data='volta_pose.yaml', epochs=200, imgsz=640)
 ```
 Place the trained model in the same directory as ```markerless_cam_pose.py``` and execute the script. The pose of the robot is estimated with respect to the camera's global origin.
 
