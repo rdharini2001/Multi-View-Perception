@@ -6,7 +6,10 @@ This repo contains code, data and instructions to replicate the paper - 'Leverag
 
 Please read the supplementary material for a comprehensive and more detailed explanation of various aspects of the framework that are not covered in the paper.
 
-# Marker-less Robot Pose Estimation
+# Zero-Shot Pose Estimation and Uncertainty Quantification
+
+
+# Instance Level Robot Pose Estimation (Optional)
 Download the pre-trained weights using this [link](https://drive.google.com/file/d/1scYfZa8a6hECXPae7nkQLXC1lbxKabC0/view?usp=sharing). If you wish to retrain the model, download the dataset from here: [Volta Pose](https://drive.google.com/drive/folders/1uBcb-0tSmQp2Nw9Y9dzLTH_DdySIXnbV?usp=sharing). We fine-tune the YOLOv8n-pose model for keypoint detection. Refer to this [link](https://github.com/ultralytics/ultralytics/blob/4ac93d82faf3324d18a233090445e83cfac62ce2/ultralytics/nn/modules/head.py) for more details on the model architecture. 
 
 # Model Training
@@ -19,7 +22,7 @@ results = model.train(data='volta_pose.yaml', epochs=200, imgsz=640)
 ```
 Place the trained model in the same directory as ```markerless_cam_pose.py``` and execute the script. The pose of the robot is estimated with respect to the camera's global origin.
 
-# Pose Uncertainty Estimation
+# Instance Level Pose Uncertainty Estimation (Optional)
 1. Install ultralytics and replace the default ```predict.py``` file with ```nms_predict.py``` provided in this repository. The model is expected to return 300 bounding boxes during inference. NOTE - You may have to rebuild the script for changes to take place.
 2. Run the ```uncertainty_computation.py``` script to estimate epistemic model uncertainty and associated covariance. (refer to the paper for the exact method).
 3. Sample covariance data is provided in ```cov_data.txt```.
