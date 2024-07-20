@@ -24,7 +24,6 @@ Place the trained model in the same directory as ```markerless_cam_pose.py``` an
 2. Run the ```uncertainty_computation.py``` script to estimate epistemic model uncertainty and associated covariance. (refer to the paper for the exact method).
 3. Sample covariance data is provided in ```cov_data.txt```.
 
-
 # Camera Placement Optimization
 1. Replace the path to your map file in the ```cam_placement_optimizer``` script.
 2. Tune the hyperparameters such as ```covariance_threshold```, ```d_max``` and ```grid size``` based on the nature of the operating environment.
@@ -41,3 +40,18 @@ NOTE: This algorithm only determines the ```x``` and ```y``` locations of the ca
 1. In this work, we consider RTAB Map as the base RGBD SLAM framework. We use the [robot_localization](https://github.com/cra-ros-pkg/robot_localization) package and implement an extended Kalman filter to communicate with the RTAB map node.
 2. We consider 5 different sensors - onboard LiDAR, IMU, wheel encoders, onboard depth camera and external monocular camera.
 3. Install RTAB Map using the instructions provided in the [RTABMap Repo](https://github.com/introlab/rtabmap) and launch RTAB Map with the custom launch file ```camera_sensor_fusion.launch``` provided in this repo. NOTE - The initial covariance and the noise covariance matrices might need some tuning based on the experimental setup and operating conditions.
+
+We extend our thanks to the many wonderful works that were used in this project - 
+1. [Ultralytics](https://github.com/ultralytics)
+2. [robot_localization](https://github.com/cra-ros-pkg/robot_localization)
+3. [RTABMap](https://github.com/introlab/rtabmap)
+
+# Recommended citation
+```
+@inproceedings{raghavan2024multiviewperception,
+  author = {Dharini Raghavan, Raghu Krishnapuram and Bharadwaj Amrutur},
+  pages = {1--8},
+  title = {{Leveraging Monocular Infrastructure Cameras for Collaborative Multi-View Perception for Indoor Autonomous Mobile Robots}},
+  year = {2024}
+}
+```
