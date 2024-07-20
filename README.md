@@ -1,4 +1,5 @@
 # Leveraging Monocular Infrastructure Cameras for Collaborative Multi-View Perception for Indoor Autonomous Mobile Robots
+# [Paper](https://drive.google.com/file/d/1QNR3rqcUCgoFsgf7qkK5IoRGjACY71ll/view?usp=sharing) | [Video](https://drive.google.com/file/d/1Wf-Vssxf6LgiQLftj3QVA6msW8QQP0EW/view?usp=sharing)
 This repo contains code, data and instructions to replicate the paper - 'Leveraging Monocular Infrastructure Cameras for Collaborative Multi-View Perception for Indoor Autonomous Mobile Robots'. This work is divided into 5 phases - marker-less robot pose estimation, pose uncertainty estimation, camera placement optimziation, data association for multi-camera multi-robot navigation and sensor fusion. Below is the overall framework proposed.
 ![alt text](https://github.com/rdharini2001/Multi-View-Perception/blob/main/final_method.png)
 
