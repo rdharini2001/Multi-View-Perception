@@ -39,8 +39,71 @@ optional arguments:
                         remotely (default: False).
   --no_sub_pixel        Do not detect sub-pixel keypoints (default: False).
 ```
-Step 3 - Use the keypointness metric to filter keypoints and assign semantic labels
+Step 3 - Run ```keypointness.py``` to filter keypoints based on confidence scores and assign semantic labels.
 
+Step 4 - ZoeDepth instructions - 
+
+1. It is recommended to fetch the latest [MiDaS repo](https://github.com/isl-org/MiDaS) via torch hub.
+   
+```
+import torch
+torch.hub.help("intel-isl/MiDaS", "DPT_BEiT_L_384", force_reload=True)  # Triggers fresh download of MiDaS repo
+```
+
+2. Use ZoeDepth to predict depth in the query image
+
+```
+##### sample prediction
+DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
+zoe = model_zoe_n.to(DEVICE)
+
+# Local file
+from PIL import Image
+image = Image.open("/path/to/image.jpg").convert("RGB")  # load
+depth_numpy = zoe.infer_pil(image)  # as numpy
+
+depth_pil = zoe.infer_pil(image, output_type="pil")  # as 16-bit PIL Image
+
+depth_tensor = zoe.infer_pil(image, output_type="tensor")  # as torch tensor
+
+# Tensor 
+from zoedepth.utils.misc import pil_to_batched_tensor
+X = pil_to_batched_tensor(image).to(DEVICE)
+depth_tensor = zoe.infer(X)
+
+
+
+# From URL
+from zoedepth.utils.misc import get_image_from_url
+
+# Example URL
+URL = "path_to_image"
+
+
+image = get_image_from_url(URL)  # fetch
+depth = zoe.infer_pil(image)
+
+# Save raw
+from zoedepth.utils.misc import save_raw_16bit
+fpath = "/path/to/output.png"
+save_raw_16bit(depth, fpath)
+
+# Colorize output
+from zoedepth.utils.misc import colorize
+
+colored = colorize(depth)
+
+# save colored output
+fpath_colored = "/path/to/output_colored.png"
+Image.fromarray(colored).save(fpath_colored)
+```
+
+
+Step 5 - Follow [these](https://colmap.github.io/install.html) instructions and install colmap to build a 3D SfM representation of the target object.
+
+Step 6 - 
+
+Step 7 - 
 
 
 # Instance Level Robot Pose Estimation (Optional)
@@ -81,9 +144,10 @@ We extend our thanks to the many wonderful works that were used in this project 
 1. [Ultralytics](https://github.com/ultralytics)
 2. [robot_localization](https://github.com/cra-ros-pkg/robot_localization)
 3. [RTABMap](https://github.com/introlab/rtabmap)
-4. [Colmap]()
-5. [Segment Anything Model]()
-6. [ALIKE]()
+4. [Colmap](https://colmap.github.io/install.html)
+5. [Segment Anything Model](https://github.com/facebookresearch/segment-anything)
+6. [ALIKE](https://github.com/Shiaoming/ALIKE)
+7. [ZoeDepth](https://github.com/isl-org/ZoeDepth)
 
 Additional details can be found [here](https://github.com/rdharini2001/Camera-Based-6D-Robot-Pose/tree/main).
 
