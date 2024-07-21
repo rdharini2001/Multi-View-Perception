@@ -27,7 +27,7 @@ def lidar_callback(msg):
 def camera_callback(msg):
     global camera_measurements, camera_covariances
     camera_data = np.array(msg.data)  # Assuming data is a flat array of features
-    camera_covariances.append(np.eye(len(camera_data)))  # Dummy covariance for demonstration
+    camera_covariances.append(camera_zero_cov) 
     camera_measurements.append(camera_data)
 
 def wheel_encoder_callback(msg):
@@ -44,7 +44,7 @@ def external_camera_callback(msg):
 def stat_distance(prediction, measurement, covariance):
     innovation = measurement - prediction
     inv_covariance = np.linalg.inv(covariance)
-    mahalanobis_dist = np.sqrt(np.dot(np.dot(innovation.T, inv_covariance), innovation))
+    mahalanobis_dist = np.sqrt(np.dot(np.dot(innovation.T, np.norm(inv_covariance)), innovation))
     return mahalanobis_dist
 
 def stat_gating(track_predictions, measurements, covariances, gating_threshold):
