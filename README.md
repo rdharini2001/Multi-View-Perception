@@ -8,6 +8,7 @@ This repo contains code, data and instructions to replicate the paper - 'Zero-Sh
 Instructions for stage-wise execution of the pose pipeline - 
 
 Step 1 - Follow the instructions provided in this [notebook](https://github.com/facebookresearch/segment-anything/blob/main/notebooks/automatic_mask_generator_example.ipynb) to generate segmentation masks and associated centroids. Save the mask and centroid locations in a text file.
+
 Step 2 - Run ALIKE - 
 ```
 git clone https://github.com/Shiaoming/ALIKE
