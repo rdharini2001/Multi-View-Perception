@@ -100,7 +100,7 @@ Step 5 - Follow [these](https://colmap.github.io/install.html) instructions and 
 
 Step 6 - Run ```icp.py``` to align both the pointclouds and obtain a transformation matrix ```T```. Use ```T``` to refine the locations of the 3D keypoints and get more accurate estimates.
 
-Step 7 - Use PnP to estimate the robot's 6D pose.
+Step 7 - Use ```cv2.solvePnP``` to estimate the robot's 6D pose. Refer [here](https://docs.opencv.org/4.x/d5/d1f/calib3d_solvePnP.html) for more details.
 
 Step 8 - Run ```zero_uncertain.py``` to estimate the covariance associated with the above pipeline.
 
