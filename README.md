@@ -102,6 +102,7 @@ Step 6 - Run ```icp.py``` to align both the pointclouds and obtain a transformat
 
 Step 7 - Use PnP to estimate the robot's 6D pose.
 
+Step 8 - Run ```zero_uncertain.py``` to estimate the covariance associated with the above pipeline.
 
 # Instance Level Robot Pose Estimation (Optional)
 Download the pre-trained weights using this [link](https://drive.google.com/file/d/1scYfZa8a6hECXPae7nkQLXC1lbxKabC0/view?usp=sharing). If you wish to retrain the model, download the dataset from here: [Volta Pose](https://drive.google.com/drive/folders/1uBcb-0tSmQp2Nw9Y9dzLTH_DdySIXnbV?usp=sharing). We fine-tune the YOLOv8n-pose model for keypoint detection. Refer to this [link](https://github.com/ultralytics/ultralytics/blob/4ac93d82faf3324d18a233090445e83cfac62ce2/ultralytics/nn/modules/head.py) for more details on the model architecture. 
