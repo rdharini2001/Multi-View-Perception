@@ -2,7 +2,7 @@
 # [Paper](https://drive.google.com/file/d/1QNR3rqcUCgoFsgf7qkK5IoRGjACY71ll/view?usp=sharing) | [Video](https://drive.google.com/file/d/1Wf-Vssxf6LgiQLftj3QVA6msW8QQP0EW/view?usp=sharing)
 This repo contains code, data and instructions to replicate the paper - 'A Multi-Camera Perception Framework for Zero-Shot Pose Estimation and Tracking of Autonomous Mobile Robots'. This work is divided into 5 phases - zero-shot robot pose estimation, pose uncertainty estimation, camera placement optimziation, data association for multi-camera multi-robot navigation and sensor fusion. Below is the overall framework proposed. We also provide instructions for model-based instance-level training for pose estimation to compare it wiith the proposed zero-shot pipeline.
 
-![alt text](https://github.com/rdharini2001/Multi-View-Perception/blob/main/final_method.png)
+![alt text](https://github.com/rdharini2001/Multi-View-Perception/blob/main/ZeroPoseFramework.JPG)
 
 Please read the supplementary material for a comprehensive and more detailed explanation of various aspects of the framework that are not covered in the paper.
 
