@@ -9,7 +9,7 @@ Instructions for stage-wise execution of the pose pipeline -
 
 Step 1 - Follow the instructions provided in this [notebook](https://github.com/facebookresearch/segment-anything/blob/main/notebooks/automatic_mask_generator_example.ipynb) to generate segmentation masks and associated centroids. Save the mask and centroid locations in a text file.
 
-Step 2 - Run ALIKE - 
+Step 2 - Run ALIKE to obtain 2D keypoints - 
 ```
 git clone https://github.com/Shiaoming/ALIKE
 cd ALIKE
@@ -39,9 +39,9 @@ optional arguments:
                         remotely (default: False).
   --no_sub_pixel        Do not detect sub-pixel keypoints (default: False).
 ```
-Step 3 - Run ```keypointness.py``` to filter keypoints based on confidence scores and assign semantic labels.
+Step 3 - Run ```keypointness.py``` to filter 2D keypoints based on confidence scores and assign semantic labels.
 
-Step 4 - ZoeDepth instructions - 
+Step 4 - Run ZoeDepth using the below instructions to obtain a depth map for the query image. This depth map is used to create an initial point cloud of the target robot. The correponding 3D keypoint locations can also be computed using the pinhole camera model.
 
 1. It is recommended to fetch the latest [MiDaS repo](https://github.com/isl-org/MiDaS) via torch hub.
    
