@@ -98,7 +98,7 @@ Generate a point cloud using the above depth map following [these](https://githu
 
 Step 5 - Follow [these](https://colmap.github.io/install.html) instructions and install colmap to build a 3D SfM representation of the target object. This serves as the final accurate point cloud.
 
-Step 6 - Run ```icp.py``` to align both the pointclouds and obtain a transformation matrix ```T```. Use ```T``` to refine the locations of the 3D keypoints.
+Step 6 - Run ```icp.py``` to align both the pointclouds and obtain a transformation matrix ```T```. Use ```T``` to refine the locations of the 3D keypoints and get more accurate estimates.
 
 Step 7 - Use PnP to estimate the robot's 6D pose.
 
