@@ -3,7 +3,7 @@ This repo contains code, data and instructions to replicate the paper - 'A Multi
 
 ![alt text](https://github.com/rdharini2001/Multi-View-Perception/blob/main/Zero_Pose.JPG)
 
-Please read the supplementary material for a comprehensive and more detailed explanation of various aspects of the framework that are not covered in the paper.
+Please refer to this [repo](https://github.com/rdharini2001/Camera-Based-6D-Robot-Pose) for a comprehensive and more detailed explanation of various aspects of the framework that are not covered in the paper.
 
 # Zero-Shot Pose Estimation and Uncertainty Quantification
 
