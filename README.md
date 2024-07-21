@@ -71,14 +71,11 @@ from zoedepth.utils.misc import pil_to_batched_tensor
 X = pil_to_batched_tensor(image).to(DEVICE)
 depth_tensor = zoe.infer(X)
 
-
-
 # From URL
 from zoedepth.utils.misc import get_image_from_url
 
 # Example URL
 URL = "path_to_image"
-
 
 image = get_image_from_url(URL)  # fetch
 depth = zoe.infer_pil(image)
@@ -97,13 +94,13 @@ colored = colorize(depth)
 fpath_colored = "/path/to/output_colored.png"
 Image.fromarray(colored).save(fpath_colored)
 ```
+Generate a point cloud using the above depth map following [these](https://github.com/HarendraKumarSingh/stereo-images-to-3D-model-generation/blob/master/depth-map-to-3D-point-cloud.ipynb) instructions. This serves as the initial pointcloud.
 
+Step 5 - Follow [these](https://colmap.github.io/install.html) instructions and install colmap to build a 3D SfM representation of the target object. This serves as the final accurate point cloud.
 
-Step 5 - Follow [these](https://colmap.github.io/install.html) instructions and install colmap to build a 3D SfM representation of the target object.
+Step 6 - Run ```icp.py``` to align both the pointclouds and obtain a transformation matrix ```T```. Use ```T``` to refine the locations of the 3D keypoints.
 
-Step 6 - 
-
-Step 7 - 
+Step 7 - Use PnP to estimate the robot's 6D pose.
 
 
 # Instance Level Robot Pose Estimation (Optional)
