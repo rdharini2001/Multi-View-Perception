@@ -3,7 +3,6 @@ This repo contains code, data and instructions to replicate the paper - 'Zero-Sh
 
 ![alt text](https://github.com/rdharini2001/Multi-View-Perception/blob/main/Zero_Pose.JPG)
 
-Please refer to this [repo](https://github.com/rdharini2001/Camera-Based-6D-Robot-Pose) for a comprehensive and more detailed explanation of various aspects of the framework that are not covered in the paper.
 
 # Zero-Shot Pose Estimation and Uncertainty Quantification
 Instructions for stage-wise execution of the pose pipeline - 
@@ -53,6 +52,8 @@ We extend our thanks to the many wonderful works that were used in this project 
 4. [Colmap]()
 5. [Segment Anything Model]()
 6. [ALIKE]()
+
+Additional details can be found [here](https://github.com/rdharini2001/Camera-Based-6D-Robot-Pose/tree/main).
 
 # Recommended citation
 ```
