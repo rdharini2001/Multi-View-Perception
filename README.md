@@ -6,8 +6,39 @@ This repo contains code, data and instructions to replicate the paper - 'Zero-Sh
 
 # Zero-Shot Pose Estimation and Uncertainty Quantification
 Instructions for stage-wise execution of the pose pipeline - 
+
 Step 1 - Follow the instructions provided in this [notebook](https://github.com/facebookresearch/segment-anything/blob/main/notebooks/automatic_mask_generator_example.ipynb) to generate segmentation masks and associated centroids. Save the mask and centroid locations in a text file.
-Step 2 - 
+Step 2 - Run ALIKE - 
+```
+git clone https://github.com/Shiaoming/ALIKE
+cd ALIKE
+pip install -r requirements.txt
+python demo.py -h
+usage: demo.py [-h] [--model {alike-t,alike-s,alike-n,alike-l}]
+               [--device DEVICE] [--top_k TOP_K] [--scores_th SCORES_TH]
+               [--n_limit N_LIMIT] [--no_display] [--no_sub_pixel]
+               input
+
+positional arguments:
+  input                 Image directory or movie file or "camera0" (for
+                        webcam0).
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --model {alike-t,alike-s,alike-n,alike-l}
+                        The model configuration
+  --device DEVICE       Running device (default: cuda).
+  --top_k TOP_K         Detect top K keypoints. -1 for threshold based mode,
+                        >0 for top K mode. (default: -1)
+  --scores_th SCORES_TH
+                        Detector score threshold (default: 0.2).
+  --n_limit N_LIMIT     Maximum number of keypoints to be detected (default:
+                        5000).
+  --no_display          Do not display images to screen. Useful if running
+                        remotely (default: False).
+  --no_sub_pixel        Do not detect sub-pixel keypoints (default: False).
+```
+Step 3 - Use the keypointness metric to filter keypoints and assign semantic labels
 
 
 
