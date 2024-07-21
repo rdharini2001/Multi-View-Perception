@@ -6,8 +6,11 @@ This repo contains code, data and instructions to replicate the paper - 'Zero-Sh
 Please refer to this [repo](https://github.com/rdharini2001/Camera-Based-6D-Robot-Pose) for a comprehensive and more detailed explanation of various aspects of the framework that are not covered in the paper.
 
 # Zero-Shot Pose Estimation and Uncertainty Quantification
-1. Install colmap using the instructions given [here](https://colmap.github.io/install.html). Use colmap to create an SfM 3D represenation of the target robot.
-2. Replace the path of the query image with the actual path in ```zero_pose.py``` and execute it.
+Instructions for stage-wise execution of the pose pipeline - 
+Step 1 - Follow the instructions provided in this [notebook](https://github.com/facebookresearch/segment-anything/blob/main/notebooks/automatic_mask_generator_example.ipynb) to generate segmentation masks and associated centroids. Save the mask and centroid locations in a text file.
+Step 2 - 
+
+
 
 # Instance Level Robot Pose Estimation (Optional)
 Download the pre-trained weights using this [link](https://drive.google.com/file/d/1scYfZa8a6hECXPae7nkQLXC1lbxKabC0/view?usp=sharing). If you wish to retrain the model, download the dataset from here: [Volta Pose](https://drive.google.com/drive/folders/1uBcb-0tSmQp2Nw9Y9dzLTH_DdySIXnbV?usp=sharing). We fine-tune the YOLOv8n-pose model for keypoint detection. Refer to this [link](https://github.com/ultralytics/ultralytics/blob/4ac93d82faf3324d18a233090445e83cfac62ce2/ultralytics/nn/modules/head.py) for more details on the model architecture. 
