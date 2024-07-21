@@ -1,11 +1,15 @@
 # Zero-Shot Pose Estimation and Tracking of Autonomous Mobile Robots - A Multi-Camera Multi-Robot Perception Framework
-This repo contains code, data and instructions to replicate the paper - 'A Multi-Camera Perception Framework for Zero-Shot Pose Estimation and Tracking of Autonomous Mobile Robots'. This work is divided into 5 phases - zero-shot robot pose estimation, pose uncertainty estimation, camera placement optimziation, data association for multi-camera multi-robot navigation and sensor fusion. Below is the overall framework proposed. We also provide instructions for model-based instance-level training for pose estimation to compare it wiith the proposed zero-shot pipeline.
+This repo contains code, data and instructions to replicate the paper - 'Zero-Shot Pose Estimation and Tracking of Autonomous Mobile Robots - A Multi-Camera Multi-Robot Perception Framework'. This work is divided into 5 phases - zero-shot robot pose estimation, pose uncertainty estimation, camera placement optimziation, data association for multi-camera multi-robot navigation and sensor fusion. Below is the overall framework proposed. We also provide instructions for model-based instance-level training for pose estimation to compare it wiith the proposed zero-shot pipeline.
 
 ![alt text](https://github.com/rdharini2001/Multi-View-Perception/blob/main/Zero_Pose.JPG)
 
 Please refer to this [repo](https://github.com/rdharini2001/Camera-Based-6D-Robot-Pose) for a comprehensive and more detailed explanation of various aspects of the framework that are not covered in the paper.
 
 # Zero-Shot Pose Estimation and Uncertainty Quantification
+1. Install colmap using the instructions given [here](https://colmap.github.io/install.html). Use the colmap GUI to create an SfM 3D represenation of the target robot.
+2. Replace the path of the query image with the actual path in ```zero_pose.py``` before executing the pipeline.
+3. 
+
 
 
 # Instance Level Robot Pose Estimation (Optional)
@@ -46,13 +50,16 @@ We extend our thanks to the many wonderful works that were used in this project 
 1. [Ultralytics](https://github.com/ultralytics)
 2. [robot_localization](https://github.com/cra-ros-pkg/robot_localization)
 3. [RTABMap](https://github.com/introlab/rtabmap)
+4. [Colmap]()
+5. [Segment Anything Model]()
+6. [ALIKE]()
 
 # Recommended citation
 ```
 @inproceedings{raghavan2024multiviewperception,
   author = {Dharini Raghavan, Raghu Krishnapuram and Bharadwaj Amrutur},
   pages = {1--8},
-  title = {{Leveraging Monocular Infrastructure Cameras for Collaborative Multi-View Perception for Indoor Autonomous Mobile Robots}},
+  title = {{Zero-Shot Pose Estimation and Tracking of Autonomous Mobile Robots - A Multi-Camera Multi-Robot Perception Framework}},
   year = {2024}
 }
 ```
