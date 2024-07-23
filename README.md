@@ -106,8 +106,6 @@ Step 7 - Use ```cv2.solvePnP``` to estimate the robot's 6D pose. Refer [here](ht
 
 Step 8 - Run ```zero_uncertain.py``` to estimate the covariance associated with the above pipeline.
 
-# How to run the above pipeline in a single shot? 
-
 We are working on providing docker capabilities for user-friendly usage. Stay tuned!
 
 # Instance Level Robot Pose Estimation (Optional)
