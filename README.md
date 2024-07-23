@@ -7,7 +7,9 @@ This repo contains code, data and instructions to replicate the paper - 'Zero-Sh
 # Zero-Shot Pose Estimation and Uncertainty Quantification
 Instructions for stage-wise execution of the pose pipeline - 
 
-Step 1 - Follow the instructions provided in this [notebook](https://github.com/facebookresearch/segment-anything/blob/main/notebooks/automatic_mask_generator_example.ipynb) to generate segmentation masks and associated centroids. Save the mask and centroid locations in a text file.
+Step 0 - Follow this [notebook](https://github.com/paulguerrero/lang-sam/blob/main/example_notebook/getting_started_with_lang_sam.ipynb) for segmenting out the target robot from the uery image using a text prompt.
+
+Step 1 - Follow the instructions provided in this [notebook](https://github.com/facebookresearch/segment-anything/blob/main/notebooks/automatic_mask_generator_example.ipynb) to generate segmentation masks and associated centroids for the target robot. Save the mask and centroid locations in a text file.
 
 Step 2 - Run ALIKE to obtain 2D keypoints - 
 ```
