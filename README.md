@@ -11,7 +11,7 @@ Step 0 - Follow this [notebook](https://github.com/paulguerrero/lang-sam/blob/ma
 
 Step 1 - Follow the instructions provided in this [notebook](https://github.com/facebookresearch/segment-anything/blob/main/notebooks/automatic_mask_generator_example.ipynb) to generate segmentation masks and associated centroids for the target robot. Save the mask and centroid locations in a text file.
 
-Step 2 - Run ALIKE to obtain 2D keypoints - 
+Step 2 - Run ALIKE to obtain 2D keypoints (Note - We also re-train ALIKE and fine tune the model with custom data)
 ```
 git clone https://github.com/Shiaoming/ALIKE
 cd ALIKE
