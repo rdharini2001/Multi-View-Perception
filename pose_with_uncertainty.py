@@ -1,20 +1,33 @@
 import numpy as np
+import pandas a pd
 
-def compute_centroid_and_uncertainty(segmentation_mask):
-    """
-    Compute the centroid and uncertainty (covariance) of the segmented part.
-    """
-    # Find pixel coordinates of the segmented part
-    coords = np.argwhere(segmentation_mask == 1)  # Assuming 1 represents the part
+import numpy as np
 
-    # Compute the centroid (mean)
-    centroid = np.mean(coords, axis=0)
+def compute_centroids_and_covariances(segmentation_parts):
+    results = {}
+    
+    for part_id, segmentation_mask in segmentation_parts.items():
+        # Find pixel coordinates of the segmented part
+        coords = np.argwhere(segmentation_mask == 1)  # Assuming 1 represents the part
+        
+        # Check if there are any coordinates in the segmentation
+        if coords.size == 0:
+            print(f"Warning: No segmented area found for part ID {part_id}.")
+            continue
+        
+        # Compute the centroid (mean)
+        centroid = np.mean(coords, axis=0)
 
-    # Compute the covariance matrix of the pixel coordinates
-    covariance_matrix = np.cov(coords.T)
-
-    return centroid, covariance_matrix
-
+        # Compute the covariance matrix of the pixel coordinates
+        covariance_matrix = np.cov(coords.T)
+        
+        # Store the centroid and covariance matrix in the results dictionary
+        results[part_id] = {
+            'centroid': centroid,
+            'covariance': covariance_matrix
+        }
+    
+    return results
 
 from sklearn.metrics import pairwise_distances
 
